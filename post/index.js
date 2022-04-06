@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const studModel = require('./studModel')
+const bcrypt = require('bcrypt')
 const bodyparser = require("body-parser");
 const courseModel = require('./coursemodel')
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -34,11 +35,21 @@ app.get("/coursefind", (req, res) => {
     courseModel.find(req.query).then((data) => res.json(data))
 
 })
+
+async function a(myfee, queryObject) {
+
+    var b = await bcrypt.hash(myfee, 10)
+    queryObject.fees = b
+    console.log(queryObject.fees)
+        // console.log(b)
+
+}
 app.post("/submitCourse", (req, res) => {
     var queryObject = req.body
-    console.log(queryObject)
-        // var count = studModel.count().then(data => data)
-        // console.log(count);
+    a(queryObject.fees, queryObject)
+
+    // var count = studModel.count().then(data => data)
+    // console.log(count);
 
     // if (count == 0) {
     //     queryObject.form_no = 1001
