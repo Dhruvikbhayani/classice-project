@@ -25,19 +25,6 @@ app.get("/find", (req, res) => {
 app.post("/submit", (req, res) => {
 
     var queryObject = req.body
-    console.log(queryObject)
-    var count = studModel.count().then(data => data)
-    console.log(count);
-
-    if (count == 0) {
-        queryObject.form_no = 1001
-        console.log(queryObject.form_no);
-    } else {
-        var lastRecord = studModel.find().select("form_no").sort({ _id: -1 }).limit(1);
-        console.log(lastRecord);
-        queryObject.form_no = lastRecord[0].form_no + 1
-    }
-
     var newUser = new studModel(queryObject);
     newUser.save().then(() => console.log("Document Inserted...")).catch(error => console.log(error))
 
