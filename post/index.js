@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const studModel = require('./studModel')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 const bodyparser = require("body-parser");
 const courseModel = require('./coursemodel')
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -38,7 +38,7 @@ app.get("/coursefind", (req, res) => {
 
 async function a(myfee, queryObject) {
 
-    var b = await bcrypt.hash(myfee, 10)
+    var b = await bcryptjs.hash(myfee, 10)
     queryObject.fees = b
     console.log(queryObject.fees)
         // console.log(b)
