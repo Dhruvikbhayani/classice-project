@@ -36,14 +36,6 @@ app.get("/coursefind", (req, res) => {
 
 })
 
-// async function a(myfee, queryObject) {
-
-//     var b = await bcryptjs.hash(myfee, 10)
-//     queryObject.fees = b
-//     console.log(queryObject.fees)
-//         // console.log(b)
-
-// }
 app.post("/submitCourse", async(req, res) => {
 
     // a(queryObject.fees, queryObject)
