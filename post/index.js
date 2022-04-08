@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const studModel = require('./studModel')
-const bcryptjs = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const bodyparser = require("body-parser");
 const courseModel = require('./coursemodel')
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -36,32 +36,26 @@ app.get("/coursefind", (req, res) => {
 
 })
 
-async function a(myfee, queryObject) {
+// async function a(myfee, queryObject) {
 
-    var b = await bcryptjs.hash(myfee, 10)
-    queryObject.fees = b
-    console.log(queryObject.fees)
-        // console.log(b)
+//     var b = await bcryptjs.hash(myfee, 10)
+//     queryObject.fees = b
+//     console.log(queryObject.fees)
+//         // console.log(b)
 
-}
-app.post("/submitCourse", (req, res) => {
+// }
+app.post("/submitCourse", async(req, res) => {
+
+    // a(queryObject.fees, queryObject)
     var queryObject = req.body
-    a(queryObject.fees, queryObject)
-
-    // var count = studModel.count().then(data => data)
-    // console.log(count);
-
-    // if (count == 0) {
-    //     queryObject.form_no = 1001
-    //     console.log(queryObject.form_no);
-    // } else {
-    //     var lastRecord = studModel.find().select("form_no").sort({ _id: -1 }).limit(1);
-    //     console.log(lastRecord);
-    //     queryObject.form_no = lastRecord[0].form_no + 1
-    // }
-
-    var newUsers = new courseModel(queryObject);
-    newUsers.save().then(() => console.log("Document Inserted...")).catch(error => console.log(error))
+    try {
+        var newUsers = await new courseModel(queryObject);
+        newUsers.fees = await bcrypt.hash(newUsers.fees, 10)
+            // console.log(newUsers.fees)
+        newUsers.save().then((data) => res.status(201)).catch(error => console.log(error))
+    } catch {
+        console.log("erro")
+    }
 
 })
 
@@ -69,3 +63,20 @@ app.post("/submitCourse", (req, res) => {
 app.listen(8000, () => {
     console.log("listing port 8000");
 })
+
+
+
+
+
+
+// var count = studModel.count().then(data => data)
+// console.log(count);
+
+// if (count == 0) {
+//     queryObject.form_no = 1001
+//     console.log(queryObject.form_no);
+// } else {
+//     var lastRecord = studModel.find().select("form_no").sort({ _id: -1 }).limit(1);
+//     console.log(lastRecord);
+//     queryObject.form_no = lastRecord[0].form_no + 1
+// }
