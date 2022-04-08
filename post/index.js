@@ -1,5 +1,5 @@
 //http://localhost:8000/student/register
-// http://localhost:8000/course/register
+//http://localhost:8000/course/register
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
