@@ -42,6 +42,7 @@ app.post("/submitCourse", async(req, res) => {
     var queryObject = req.body
     try {
         var newUsers = await new courseModel(queryObject);
+
         newUsers.fees = await bcrypt.hash(newUsers.fees, 10)
             // console.log(newUsers.fees)
         newUsers.save().then((data) => res.status(201)).catch(error => console.log(error))
