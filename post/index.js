@@ -51,8 +51,6 @@ app.post("/submitCourse", async(req, res) => {
     }
 
 })
-
-
 app.listen(8000, () => {
     console.log("listing port 8000");
 })
