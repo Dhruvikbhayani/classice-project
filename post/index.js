@@ -7,13 +7,15 @@ const studModel = require('./studModel')
 const bcrypt = require('bcrypt')
 const bodyparser = require("body-parser");
 const courseModel = require('./coursemodel')
+const port = process.env.PORT || 8000
 app.use(bodyparser.urlencoded({ extended: true }));
-// app.use(bodyparser.json());
+// app.use(bodyparser.json());  
 
 const { studentRouter, courseRouter } = require("./rout")
 app.use("/student", studentRouter);
 app.use("/course", courseRouter)
-mongoose.connect("mongodb://localhost:27017/form", {
+const uri = 'mongodb+srv://DhruvikBhayani:Dk5@bhayani@dhruvik.0qfcz.mongodb.net/student?retryWrites=true&w=majority';
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -51,7 +53,7 @@ app.post("/submitCourse", async(req, res) => {
     }
 
 })
-app.listen(8000, () => {
+app.listen(port, () => {
     console.log("listing port 8000");
 })
 
