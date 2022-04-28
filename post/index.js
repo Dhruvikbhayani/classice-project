@@ -8,9 +8,10 @@ const bcrypt = require('bcrypt')
 const bodyparser = require("body-parser");
 const courseModel = require('./coursemodel')
 const port = process.env.PORT || 8000
-app.use(bodyparser.urlencoded({ extended: true }));
-// app.use(bodyparser.json());  
+    // app.use(bodyparser.urlencoded({ extended: true }));
+    //  app.use(bodyparser.json());  
 
+app.use(express.json())
 const { studentRouter, courseRouter } = require("./rout")
 app.use("/student", studentRouter);
 app.use("/course", courseRouter)
