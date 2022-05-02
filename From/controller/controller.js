@@ -1,12 +1,16 @@
-const user = require('../model/model')
+const express = require('express')
+const app = express()
 
+const user = require('../model/model');
 
 exports.singup = (async(req, res) => {
 
     await user.insertMany(req.body).then(async data => {
+
         const reference = req.body.reference
         await user.find({ email: req.body.reference }).then(async data => {
             const email = data[0].email
+
             if (reference == email) {
 
                 const salary = data[0].salary
@@ -29,6 +33,9 @@ exports.login = (async(req, res) => {
         // console.log(data)
         // const signemail = data[0].email
         // const loginemail = req.body.email
+        req.session = req.body.email
+        req.session = req.body.password
+
         if (data == '') {
             res.send("please enter vaid email")
         } else {
