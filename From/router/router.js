@@ -2,7 +2,7 @@ const express = require('express')
 const user = require('../model/model')
 const router = express.Router()
 const controller = require('../controller/controller')
-const sessions = require('../session')
+const sessions = require('../session/session')
 
 const mongoose = require('mongoose')
 
@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost:27017/data").then(() => {
 }).catch(e => { console.log(e) })
 
 router.post('/signup', controller.singup)
-router.post('/login', controller.login, sessions.session)
+router.post('/login', controller.login)
 router.put("/update", controller.update)
 router.delete("/delete", controller.delete)
 

@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
-
+const session = require('../session/session')
 const user = require('../model/model');
+
 
 exports.singup = (async(req, res) => {
 
@@ -30,11 +31,11 @@ exports.singup = (async(req, res) => {
 exports.login = (async(req, res) => {
 
     await user.find({ email: req.body.email }).then(async data => {
-        // console.log(data)
-        // const signemail = data[0].email
-        // const loginemail = req.body.email
-        req.session = req.body.email
-        req.session = req.body.password
+
+        session.session = [req.body.email, req.body.password]
+
+        req.session = session.session
+        console.log(req.session)
 
         if (data == '') {
             res.send("please enter vaid email")
@@ -58,7 +59,6 @@ exports.login = (async(req, res) => {
 
             }
         }
-
 
     })
 })
