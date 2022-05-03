@@ -2,7 +2,6 @@ const express = require('express')
 const user = require('../model/model')
 const router = express.Router()
 const controller = require('../controller/controller')
-const sessions = require('../session/session')
 
 const mongoose = require('mongoose')
 
