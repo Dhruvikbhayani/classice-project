@@ -8,6 +8,7 @@ exports.singup = (async(req, res) => {
 
         const reference = req.body.reference
         await user.find({ email: req.body.reference }).then(async data => {
+
             const email = data[0].email
 
             if (reference == email) {
